@@ -1,0 +1,2 @@
+Box<dyn for<'a> std::ops::Fn(&'a cosmic::Theme) -> cosmic::iced_widget::text::Style>
+cosmic::theme::Text: From<Box<dyn for<'a> std::ops::Fn(&'a cosmic::Theme) -> cosmic::iced_widget::text::Style>>

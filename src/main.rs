@@ -1,0 +1,149 @@
+use cosmic::app::Core;
+use cosmic::iced::{Color, Length, Subscription, Task};
+use cosmic::iced::alignment::{Horizontal, Vertical};
+use cosmic::{Action, Application, Element};
+use std::time::Duration;
+
+const REFRESH_SECS: u64 = 30;
+
+fn main() -> cosmic::iced::Result {
+    cosmic::applet::run::<BatteryApplet>(())
+}
+
+struct BatteryApplet {
+    core: Core,
+    percentage: Option<f64>,
+    charging: bool,
+    present: bool,
+}
+
+#[derive(Debug, Clone)]
+enum Message {
+    Tick,
+    BatteryInfo { percentage: f64, charging: bool, present: bool },
+}
+
+fn battery_color(pct: f64, charging: bool) -> Color {
+    if charging {
+        return Color::from_rgb(0.0, 0.898, 1.0);       // cyan
+    }
+    match pct as u32 {
+        80..=100 => Color::from_rgb(0.412, 1.0, 0.278), // green
+        40..=79  => Color::WHITE,
+        15..=39  => Color::from_rgb(1.0, 0.702, 0.0),   // orange
+        _        => Color::from_rgb(1.0, 0.090, 0.267), // red
+    }
+}
+
+impl Application for BatteryApplet {
+    type Executor = cosmic::executor::Default;
+    type Flags = ();
+    type Message = Message;
+
+    const APP_ID: &'static str = "com.github.cosmic-battery-applet";
+
+    fn core(&self) -> &Core { &self.core }
+    fn core_mut(&mut self) -> &mut Core { &mut self.core }
+
+    fn init(core: Core, _flags: ()) -> (Self, Task<Action<Message>>) {
+        let applet = Self { core, percentage: None, charging: false, present: false };
+        (applet, cosmic::task::future(async {
+            cosmic::Action::App(match fetch_battery().await {
+                Some((pct, charging, present)) => Message::BatteryInfo { percentage: pct, charging, present },
+                None => Message::Tick,
+            })
+        }))
+    }
+
+    fn update(&mut self, msg: Message) -> Task<Action<Message>> {
+        match msg {
+            Message::Tick => cosmic::task::future(async {
+                cosmic::Action::App(match fetch_battery().await {
+                    Some((pct, charging, present)) => Message::BatteryInfo { percentage: pct, charging, present },
+                    None => Message::Tick,
+                })
+            }),
+            Message::BatteryInfo { percentage, charging, present } => {
+                self.percentage = Some(percentage);
+                self.charging = charging;
+                self.present = present;
+                Task::none()
+            }
+        }
+    }
+
+    fn subscription(&self) -> Subscription<Message> {
+        cosmic::iced::time::every(Duration::from_secs(REFRESH_SECS)).map(|_| Message::Tick)
+    }
+
+    fn view(&self) -> Element<Message> {
+        let (label, color) = match (self.present, self.percentage) {
+            (false, _) | (_, None) => ("--".to_string(), Color::WHITE),
+            (true, Some(pct)) => {
+                let label = if self.charging {
+                    format!("+{:.0}%", pct)
+                } else {
+                    format!("{:.0}%", pct)
+                };
+                (label, battery_color(pct, self.charging))
+            }
+        };
+
+        cosmic::iced::widget::container(
+            cosmic::widget::text(label).class(cosmic::theme::Text::Color(color))
+        )
+        .width(Length::Shrink)
+        .height(Length::Fill)
+        .align_x(Horizontal::Center)
+        .align_y(Vertical::Center)
+        .into()
+    }
+
+    fn style(&self) -> Option<cosmic::iced::theme::Style> {
+        Some(cosmic::applet::style())
+    }
+}
+
+async fn fetch_battery() -> Option<(f64, bool, bool)> {
+    use zbus::Connection;
+    let conn = Connection::system().await.ok()?;
+
+    let paths: Vec<zbus::zvariant::OwnedObjectPath> = conn
+        .call_method(
+            Some("org.freedesktop.UPower"),
+            "/org/freedesktop/UPower",
+            Some("org.freedesktop.UPower"),
+            "EnumerateDevices",
+            &(),
+        )
+        .await.ok()?.body().deserialize().ok()?;
+
+    for path in paths {
+        let dev_type: u32 = conn
+            .call_method(Some("org.freedesktop.UPower"), path.as_str(),
+                Some("org.freedesktop.DBus.Properties"), "Get",
+                &("org.freedesktop.UPower.Device", "Type"))
+            .await.ok()?.body().deserialize::<zbus::zvariant::Value>().ok()
+            .and_then(|v| v.downcast::<u32>().ok())?;
+
+        if dev_type != 2 { continue; }
+
+        let percentage: f64 = conn
+            .call_method(Some("org.freedesktop.UPower"), path.as_str(),
+                Some("org.freedesktop.DBus.Properties"), "Get",
+                &("org.freedesktop.UPower.Device", "Percentage"))
+            .await.ok()?.body().deserialize::<zbus::zvariant::Value>().ok()
+            .and_then(|v| v.downcast::<f64>().ok())?;
+
+        let state: u32 = conn
+            .call_method(Some("org.freedesktop.UPower"), path.as_str(),
+                Some("org.freedesktop.DBus.Properties"), "Get",
+                &("org.freedesktop.UPower.Device", "State"))
+            .await.ok()?.body().deserialize::<zbus::zvariant::Value>().ok()
+            .and_then(|v| v.downcast::<u32>().ok())?;
+
+        return Some((percentage, state == 1 || state == 4, true));
+    }
+
+    Some((0.0, false, false))
+}

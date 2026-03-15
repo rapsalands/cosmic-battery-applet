@@ -1,0 +1,12 @@
+/home/sandeep/Downloads/battery_perc/target/release/deps/drm_ffi-8e5f113ffc286c54.d: /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/lib.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/utils.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/gem.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/ioctl.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/mode.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/syncobj.rs
+
+/home/sandeep/Downloads/battery_perc/target/release/deps/libdrm_ffi-8e5f113ffc286c54.rlib: /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/lib.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/utils.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/gem.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/ioctl.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/mode.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/syncobj.rs
+
+/home/sandeep/Downloads/battery_perc/target/release/deps/libdrm_ffi-8e5f113ffc286c54.rmeta: /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/lib.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/utils.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/gem.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/ioctl.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/mode.rs /home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/syncobj.rs
+
+/home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/lib.rs:
+/home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/utils.rs:
+/home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/gem.rs:
+/home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/ioctl.rs:
+/home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/mode.rs:
+/home/sandeep/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/drm-ffi-0.7.1/src/syncobj.rs:

@@ -1,0 +1,17 @@
+[package]
+name = "cosmic-battery-applet"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies.libcosmic]
+git = "https://github.com/pop-os/libcosmic"
+default-features = false
+features = ["applet", "tokio", "wayland"]
+
+[dependencies]
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+zbus = { version = "4", default-features = false, features = ["tokio"] }
+
+[[bin]]
+name = "cosmic-battery-applet"
+path = "src/main.rs"

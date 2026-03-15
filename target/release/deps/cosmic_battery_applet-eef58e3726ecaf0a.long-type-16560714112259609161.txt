@@ -1,0 +1,2 @@
+cosmic::iced_core::widget::Text<'_, cosmic::Theme, iced_tiny_skia::Renderer>: From<&std::string::String>
+Into<cosmic::iced_core::widget::Text<'_, cosmic::Theme, iced_tiny_skia::Renderer>>

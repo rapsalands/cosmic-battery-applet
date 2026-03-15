@@ -1,0 +1,9 @@
+cosmic::iced_core::Element<'_, Message, cosmic::Theme, iced_tiny_skia::Renderer>
+cosmic::iced_core::Element<'_, Message, cosmic::Theme, iced_tiny_skia::Renderer>: From<cosmic::widget::Button<'_, std::option::Option<Message>>>
+From<cosmic::widget::responsive_container::ResponsiveContainer<'_, Message, Theme, Renderer>>
+From<cosmic::widget::button::Builder<'_, Message, cosmic::widget::button::icon::Icon>>
+From<cosmic::widget::button::Builder<'_, Message, cosmic::widget::button::image::Image<'_, cosmic::widget::image::Handle, Message>>>
+From<cosmic::widget::button::Builder<'_, Message, cosmic::widget::button::text::Text>>
+From<cosmic::widget::segmented_button::SegmentedButton<'_, Variant, SelectionMode, Message>>
+From<cosmic::widget::wayland::tooltip::widget::Tooltip<'_, Message, TopLevelMessage>>
+Into<cosmic::iced_core::Element<'_, Message, cosmic::Theme, iced_tiny_skia::Renderer>>

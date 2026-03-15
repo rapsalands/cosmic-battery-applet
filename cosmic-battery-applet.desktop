@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Battery Applet
+Comment=Shows battery percentage in the COSMIC panel
+Exec=cosmic-battery-applet
+Icon=battery-symbolic
+Type=Application
+Categories=COSMIC;
+Terminal=false
+StartupNotify=true
+NoDisplay=true
+X-CosmicApplet=true
+X-CosmicHoverPopup=Auto
