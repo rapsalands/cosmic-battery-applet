@@ -1,5 +1,7 @@
 # cosmic-battery-applet
 
+![Charging](Charging.png) ![Not Charging](NotCharging.png)
+
 A lightweight battery percentage applet for the [COSMIC desktop](https://system76.com/cosmic) (Pop OS 24.04+).
 
 Displays live battery status directly in the top panel with color-coded indicators.
