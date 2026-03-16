@@ -117,7 +117,7 @@ impl Application for BatteryApplet {
             (false, _) | (_, None) => ("--".to_string(), Color::WHITE),
             (true, Some(pct)) => {
                 let label = if self.charging {
-                    format!("+{:.0}%", pct)
+                    if pct >= 100.0 { format!("+{:.0}", pct) } else { format!("+{:.0}%", pct) }
                 } else {
                     format!("{:.0}%", pct)
                 };
