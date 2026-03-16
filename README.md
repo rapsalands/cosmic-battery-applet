@@ -205,6 +205,14 @@ Then try building again:
 cargo build --release
 ```
 
+**Complete Command to Refresh**
+```
+cd ~/dev/battery_perc
+cargo build --release
+cp target/release/cosmic-battery-applet ~/.local/bin/
+pkill -f cosmic-battery
+```
+
 ---
 
 ## How it works (for the curious)
